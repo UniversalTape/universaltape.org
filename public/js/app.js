@@ -35,8 +35,10 @@
             function replaceChars(string) {
                 string = string.replace(/%/g, 'percent');
                 string = string.replace(/#/g, 'number');
+                string = string.replace(/&/g, 'and');
                 string = string.replace(/\$/g, 'usd');
                 string = string.replace(/-/g, '_');
+                string = string.replace(/\./g, '_');
                 string = string.replace(/ /g, '_');
                 return string.replace(/[^\w_]/g, '');
             }

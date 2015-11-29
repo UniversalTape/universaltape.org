@@ -35,9 +35,10 @@ The **key** _(column title)_ is normalized _(convert to a common format)_ before
 1. **Lowercase** the key
 2. **Replace** _"%"_ characters with _"percent"_
 3. **Replace** _"#"_ characters with _"number"_
-4. **Replace** _"$"_ characters with _"usd"_
-5. **Replace** _" " (space)_ and _"-" (dash)_ characters with _"\_" (underscore)_
-6. **Remove** all _non-alphanumeric_ characters (except for _underscore_)
+4. **Replace** _"&"_ characters with _"and"_
+5. **Replace** _"$"_ characters with _"usd"_
+6. **Replace** _"." (dot)_, _" " (space)_ and _"-" (dash)_ characters with _"\_" (underscore)_
+7. **Remove** all _non-alphanumeric_ characters (except for _underscore_)
 
 #### Interactive Example
 
@@ -52,15 +53,15 @@ The table below shows 3 different keys, and their normalized values. You can edi
     </thead>
     <tbody>
         <tr>
-            <td><input type="text" style="width: 100%;" ng-model="normalizeDemo1" ng-init="normalizeDemo1 = 'BORROWER NAME'"></td>
+            <td><input type="text" style="width: 100%;" ng-model="normalizeDemo1" ng-init="normalizeDemo1 = 'Borrower Name'"></td>
             <td><code ng-bind="normalizeDemo1 | normalize"></code></td>
         </tr>
         <tr>
-            <td><input type="text" style="width: 100%;" ng-model="normalizeDemo2" ng-init="normalizeDemo2 = 'Borrower Mobile #'"></td>
+            <td><input type="text" style="width: 100%;" ng-model="normalizeDemo2" ng-init="normalizeDemo2 = 'U.P.B $'"></td>
             <td><code ng-bind="normalizeDemo2 | normalize"></code></td>
         </tr>
          <tr>
-             <td><input type="text" style="width: 100%;" ng-model="normalizeDemo3" ng-init="normalizeDemo3 = 'borrower-email'"></td>
+             <td><input type="text" style="width: 100%;" ng-model="normalizeDemo3" ng-init="normalizeDemo3 = 'u-p-b usd'"></td>
              <td><code ng-bind="normalizeDemo3 | normalize"></code></td>
          </tr>
     </tbody>
