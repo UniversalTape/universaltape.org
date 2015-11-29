@@ -1,0 +1,27 @@
+{
+  "name": "universaltape.org",
+  "homepage": "https://github.com/UniversalTape/universaltape.org",
+  "authors": [
+    "Mike McLin <mike@paperstac.com>"
+  ],
+  "description": "Open Mortgage note tape format",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "mortgage",
+    "notes",
+    "tapes",
+    "loans",
+    "spreadsheet",
+    "csv",
+    "excel"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

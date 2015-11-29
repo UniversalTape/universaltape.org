@@ -1,0 +1,19 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Universal Tape
+tagline:          'Open Mortgage note tape format'
+description:      'An open source universal format for transferring mortgage note tapes between services.'
+url:              http://universaltape.org
+baseurl:          /
+
+# Custom vars
+version:          0.1.0
+
+github:
+  repo:           https://github.com/paperstac/universaltape
