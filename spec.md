@@ -69,7 +69,7 @@ The table below shows 3 different keys, and their normalized values. You can edi
 
 ---
 
-## Value Types
+<h2 id="value-types">Value Types</h2>
 
 Keys expect certain **values types** _(formats)_ for each data cell. Below is a list of the various value types that are referenced in the spec.
 
@@ -97,6 +97,8 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
 </table>
 
 ---
+
+<h2 id="keys">Keys</h2>
 
 #### Borrower Keys
 
