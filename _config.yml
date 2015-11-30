@@ -7,8 +7,8 @@ permalink:        pretty
 
 # Setup
 title:            Universal Tape
-tagline:          'Open Mortgage note tape format'
-description:      'An open source universal format for transferring mortgage note tapes between services.'
+tagline:          'An open standard mortgage note tape format'
+description:      'An open standard mortgage note tape format'
 url:              http://universaltape.org
 baseurl:          /
 
