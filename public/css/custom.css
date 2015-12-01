@@ -8,3 +8,34 @@ input {
     max-width: 50%;
     display: inline-block;
 }
+
+.accordion {
+
+}
+
+.accordion > dt {
+    border: 3px solid #ccc;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin-bottom: 3px;
+}
+
+.accordion > dt:hover {
+    color: #268bd2;
+    border: 3px solid #268bd2;
+    cursor: pointer;
+}
+
+.accordion > dt.active {
+    background-color: #268bd2;
+    color: #fff;
+    border: 3px solid #268bd2;
+}
+
+.accordion > dd {
+    margin: -6px 0 3px 0;
+    border: 3px solid #268bd2;
+    border-radius: 3px;
+    padding: 10px 20px;
+    color: #268bd2;
+}

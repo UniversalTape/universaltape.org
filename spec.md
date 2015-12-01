@@ -13,17 +13,31 @@ title: Spec
 
 Parsing of the file happens one row at a time, from top to bottom. If a recognized Universal Tape **key** is found within one of the row columns _(usually the first row of the spreadsheet)_, we assume that the row is a **definition row** _(a row of **keys** that define the data in the upcoming rows)_. Once a definition row is found, we begin importing all the valid data within the columns of the **keys** recognized by the Universal Tape format.
 
+<h4 id="required-data">Required Data</h4>
+
+At the very minimum, each row needs to contain valid values for these (3) keys:
+
+* `borrower_name` **or** `borrower_last_name`
+* `property_street_address`
+* `property_postal_code` **or** `property_zip`
+
 #### Parsing FAQ
 
-<dl>
-    <dt>What if the file has multiple definition rows?</dt>
-    <dd>Each time a row is parsed, it checks if it is a definition row. If so, the keys within it are recognized for all the following row data, until another definition row is detected.</dd>
-    <dt>What if place my first definition row on the 5th row?</dt>
-    <dd>The parser will ignore the first 4 rows, and then set the 5th row as the definition row, and begin importing valid data on the 6th row.</dd>
-    <dt>What happens to the columns that don't have a Universal Tape key in the definition row?</dt>
-    <dd>The data for that column is ignored.</dd>
-    <dt>What if I have a row of values, and a column that is defined by a Universal Tape key, but the column contains an invalid data type, or is empty?</dt>
-    <dd>The column will be ignored, when parsing that row.</dd>
+<dl class="accordion">
+    <dt ng-click="parsingFaq = 1" ng-class="{'active': parsingFaq == 1}">What if the file has multiple definition rows?</dt>
+    <dd ng-show="parsingFaq == 1">Each time a row is parsed, it checks if it is a definition row. If so, the keys within it are recognized for all the following row data, until another definition row is detected.</dd>
+    <dt ng-click="parsingFaq = 2" ng-class="{'active': parsingFaq == 2}">What if place my first definition row on the 5th row?</dt>
+    <dd ng-show="parsingFaq == 2">The parser will ignore the first 4 rows, and then set the 5th row as the definition row, and begin importing valid data on the 6th row.</dd>
+    <dt ng-click="parsingFaq = 3" ng-class="{'active': parsingFaq == 3}">What happens to the columns that don't have a Universal Tape key in the definition row?</dt>
+    <dd ng-show="parsingFaq == 3">The data for that column is ignored.</dd>
+    <dt ng-click="parsingFaq = 4" ng-class="{'active': parsingFaq == 4}">What if I have a row of values, and a column that is defined by a Universal Tape key, but the column contains an invalid data type, or is empty?</dt>
+    <dd ng-show="parsingFaq == 4">The column will be ignored, when parsing that row.</dd>
+    <dt ng-click="parsingFaq = 5" ng-class="{'active': parsingFaq == 5}">What happens if required data (like <code>property_street_address</code>) is missing from a row?</dd>
+    <dd ng-show="parsingFaq == 5">The row will be skipped and not parsed.</dd>
+    <dt ng-click="parsingFaq = 6" ng-class="{'active': parsingFaq == 6}">Do I need to include all Universal Tapes keys in my definition row?</dt>
+    <dd ng-show="parsingFaq == 6">No. Only the <a href="#required-data">required data</a> keys are required.
+    <dt ng-click="parsingFaq = 7" ng-class="{'active': parsingFaq == 7}">Can I use my own properietary keys that are not part of the Universal Tape spec?</dt>
+    <dd ng-show="parsingFaq == 7">Yes. Applications that import/parse your tape will simply ignore that column.</dd>
 </dl>
 
 ---
@@ -100,6 +114,8 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
 
 <h2 id="keys">Keys</h2>
 
+Below are the **keys** that **Universal Tape** recognizes.  It should be said that a tape will most likely **not** contain all of these keys.  Also, a tape will contain proprietary data that is not part of the **Universal Tape** spec, and will be ignored by any applications parsing the data. If there is a certain key that you would like to see added to the spec, please fill out an [issue](https://github.com/UniversalTape/universaltape.org/issues) on our Github page.
+
 #### Borrower Keys
 
 <table>
@@ -114,7 +130,17 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
         <tr>
             <td><code>borrower_name</code></td>
             <td><a href="#type-string">string</a></td>
-            <td><strong>[REQUIRED]</strong> Borrower's full name. The row will not import if this column is invalid or <code>NULL</code> <em>(empty)</em>.</td>
+            <td>Borrower's full name. This key is used as an alternative to outputting the first and last name individually.</td>
+        </tr>
+        <tr>
+            <td><code>borrower_first_name</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td>Borrower's fist name. Normally, the <code>borrower_last_name</code> key is used in combination with this key as an alternative to <code>borrower_name</code>.</td>
+        </tr>
+        <tr>
+            <td><code>borrower_last_name</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td>Borrower's last name. Normally, the <code>borrower_first_name</code> key is used in combination with this key as an alternative to <code>borrower_name</code>.</td>
         </tr>
         <tr>
             <td><code>borrower_street_address</code></td>
@@ -160,6 +186,249 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
             <td><code>borrower_country</code></td>
             <td><a href="#type-country">country</a></td>
             <td>Country for the borrower's home address.</td>
+        </tr>
+        <tr>
+            <td><code>borrower_home_number</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>borrower_work_number</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>borrower_mobile_number</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>borrower_fax_number</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>borrower_email</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+#### Property Keys
+
+<table>
+    <thead>
+        <tr>
+            <th>Normalized Key</th>
+            <th>Type</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody style="font-size: 14px;">
+        <tr>
+            <td><code>property_street_address</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_city</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_state</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_subdivision</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_postal_code</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_zip</code> <em>(alias)</em></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_county</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_country</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_value_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>valuation_type</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>valuation_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>occupancy_status</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>property_type</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+#### Other Keys
+
+<table>
+    <thead>
+        <tr>
+            <th>Normalized Key</th>
+            <th>Type</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody style="font-size: 14px;">
+        <tr>
+            <td><code>original_balance_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>u_p_b_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>intrest_rate_percent</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>sold_rate_percent</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>lien_position</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>escrow_amount_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>loan_charges_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>accrued_late_charges_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>payments_last_12_months</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>unpaid_intrest_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>past_due_taxes_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>p_and_i_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>foreclosure_started</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>bankruptcy</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>grace_days</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>late_charge_percent</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>late_charge_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>paid_to_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>first_pay_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>next_pay_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>last_pay_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>maturity_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>original_loan_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>total_payoff_usd</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>origination_date</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td></td>
         </tr>
     </tbody>
 </table>
