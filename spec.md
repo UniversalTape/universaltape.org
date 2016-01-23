@@ -103,9 +103,21 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
             <td><code>state</code></td>
             <td>2-character alpha code representing a state <em>(example <code>FL</code> for <strong>Florida</strong>)</em>. Alpha codes are based on <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standard_state_code#FIPS_state_codes" target="_blank">FIPS State Codes</a>.</td>
         </tr>
+        <tr id="type-zip">
+            <td><code>zip</code></td>
+            <td>5-digit zip code (US)</td>
+        </tr>
         <tr id="type-country">
             <td><code>country</code></td>
             <td>2-character alpha code representing a country <em>(example <code>US</code> for <strong>United States of America</strong>)</em>. Alpha codes are based on <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank">ISO 3166-1 alpha-2 codes</a>.</td>
+        </tr>
+        <tr id="type-email">
+            <td><code>email</code></td>
+            <td>Email address</td>
+        </tr>
+        <tr id="type-phone">
+            <td><code>phone</code></td>
+            <td>A string that contains between 10-15 numeric characters.</td>
         </tr>
     </tbody>
 </table>
@@ -158,14 +170,14 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>City for the borrower's home address.</td>
         </tr>
         <tr>
-            <td><code>borrower_state</code></td>
-            <td><a href="#type-state">state</a></td>
-            <td><em>(For US addresses)</em> State for the borrower's home address.</td>
-        </tr>
-        <tr>
             <td><code>borrower_subdivision</code></td>
             <td><a href="#type-string">string</a></td>
-            <td><em>(For non-US addresses)</em> The state/province/region for the borrower's home address.</td>
+            <td>The state/province/region for the borrower's home address.</td>
+        </tr>
+        <tr>
+            <td><code>borrower_state</code></td>
+            <td><a href="#type-state">state</a></td>
+            <td><em>(For US addresses only)</em> A more strict version of <code>borrower_subdivision</code> that requires a 2-character state code.</td>
         </tr>
         <tr>
             <td><code>borrower_postal_code</code></td>
@@ -173,9 +185,9 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>The postal code for the borrower's home address.</td>
         </tr>
         <tr>
-            <td><code>borrower_zip</code> <em>(alias)</em></td>
-            <td><a href="#type-string">string</a></td>
-            <td>This key can be used instead of the offical <code>borrower_postal_code</code></td>
+            <td><code>borrower_zip</code></td>
+            <td><a href="#type-zip">zip</a></td>
+            <td><em>(For US addresses only)</em>. A more strict version of <code>borrower_postal_code</code> using a 5-digit US zip code.</td>
         </tr>
         <tr>
             <td><code>borrower_county</code></td>
@@ -189,28 +201,28 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         </tr>
         <tr>
             <td><code>borrower_home_number</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-phone">phone</a></td>
+            <td>Borrower's home phone number.</td>
         </tr>
         <tr>
             <td><code>borrower_work_number</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-phone">phone</a></td>
+            <td>Borrower's work phone number.</td>
         </tr>
         <tr>
             <td><code>borrower_mobile_number</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-phone">phone</a></td>
+            <td>Borrower's mobile phone number.</td>
         </tr>
         <tr>
             <td><code>borrower_fax_number</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-phone">phone</a></td>
+            <td>Borrower's fax number.</td>
         </tr>
         <tr>
             <td><code>borrower_email</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-email">email</a></td>
+            <td>Borrower's email address.</td>
         </tr>
     </tbody>
 </table>
