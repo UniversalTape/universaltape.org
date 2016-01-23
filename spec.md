@@ -42,7 +42,7 @@ At the very minimum, each row needs to contain valid values for these (3) keys:
 
 ---
 
-## Key Normalization
+<h2 id="key-normalization">Key Normalization</h2>
 
 The **key** _(column title)_ is normalized _(convert to a common format)_ before interpretation. This allows the **Universal Tape** to allow flexibility in things like letter casing, etc. The formula for normalizing the key is:
 
@@ -94,7 +94,7 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
             <th>Comments</th>
         </tr>
     </thead>
-    <tbody style="font-size: 14px;">
+    <tbody style="font-size: 14px; vertical-align: top;">
         <tr id="type-string">
             <td><code>string</code></td>
             <td>Any value</td>
@@ -111,6 +111,10 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
             <td><code>country</code></td>
             <td>2-character alpha code representing a country <em>(example <code>US</code> for <strong>United States of America</strong>)</em>. Alpha codes are based on <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank">ISO 3166-1 alpha-2 codes</a>.</td>
         </tr>
+        <tr id="type-date">
+            <td><code>date</code></td>
+            <td>Date in either <code>M/D/YY</code>, or <code>YYYY-MM-DD</code> format. The date <strong>January, 23 2016</strong> could be formatted as either <code>1/23/16</code> or <code>2016-01-23</code>.</td>
+        </tr>
         <tr id="type-email">
             <td><code>email</code></td>
             <td>Email address</td>
@@ -118,6 +122,14 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
         <tr id="type-phone">
             <td><code>phone</code></td>
             <td>A string that contains between 10-15 numeric characters.</td>
+        </tr>
+        <tr id="type-usd">
+            <td><code>usd</code></td>
+            <td>A currency format that represents United States Dollars. Smaller cents units should be represented with a decimal (e.g. <code>.50</code>, <strong>NOT</strong> <code>50¢</code>).  The dollar sign (<code>$</code>) and comma-separators (e.g. <code>1,000</code>) are optional.</td>
+        </tr>
+        <tr id="type-choice">
+            <td><code>choice</code></td>
+            <td>Requires a value from available choices for that key. If the column value is not recognized, then the value will fallback to <code>other</code>. The value is normalized, using the same formula that definition keys are <a href="#key-normalization">normalized</a> with, before interpretation.  So, <code>Original Appraisal</code> is the same as <code>original_appraisal</code>.</td>
         </tr>
     </tbody>
 </table>
@@ -138,7 +150,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <th>Comments</th>
         </tr>
     </thead>
-    <tbody style="font-size: 14px;">
+    <tbody style="font-size: 14px; vertical-align: top;">
         <tr>
             <td><code>borrower_name</code></td>
             <td><a href="#type-string">string</a></td>
@@ -177,7 +189,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>borrower_state</code></td>
             <td><a href="#type-state">state</a></td>
-            <td><em>(For US addresses only)</em> A more strict version of <code>borrower_subdivision</code> that requires a 2-character state code.</td>
+            <td><em>(For US addresses only)</em> A more strict-type version of <code>borrower_subdivision</code> that requires a 2-character state code.</td>
         </tr>
         <tr>
             <td><code>borrower_postal_code</code></td>
@@ -187,7 +199,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>borrower_zip</code></td>
             <td><a href="#type-zip">zip</a></td>
-            <td><em>(For US addresses only)</em>. A more strict version of <code>borrower_postal_code</code> using a 5-digit US zip code.</td>
+            <td><em>(For US addresses only)</em>. A more strict-type version of <code>borrower_postal_code</code> using a 5-digit US zip code.</td>
         </tr>
         <tr>
             <td><code>borrower_county</code></td>
@@ -237,71 +249,76 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <th>Comments</th>
         </tr>
     </thead>
-    <tbody style="font-size: 14px;">
+    <tbody style="font-size: 14px; vertical-align: top;">
         <tr>
             <td><code>property_street_address</code></td>
             <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td>Street address for the property. This may optionally append the <code>property_street_address_2</code> value.</td>
+        </tr>
+        <tr>
+            <td><code>property_street_address_2</code></td>
+            <td><a href="#type-string">string</a></td>
+            <td>Unit, suite #, etc for the property.</td>
         </tr>
         <tr>
             <td><code>property_city</code></td>
             <td><a href="#type-string">string</a></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><code>property_state</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td>City the property resides in.</td>
         </tr>
         <tr>
             <td><code>property_subdivision</code></td>
             <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td>The state/province/region for the property resides in.</td>
+        </tr>
+        <tr>
+            <td><code>property_state</code></td>
+            <td><a href="#type-state">state</a></td>
+            <td><em>(For US addresses only)</em> A more strict-type version of <code>property_subdivision</code> that requires a 2-character state code.</td>
         </tr>
         <tr>
             <td><code>property_postal_code</code></td>
             <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td>The postal code for the property.</td>
         </tr>
         <tr>
-            <td><code>property_zip</code> <em>(alias)</em></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><code>property_zip</code></td>
+            <td><a href="#type-zip">zip</a></td>
+            <td><em>(For US addresses only)</em>. A more strict-type version of <code>property_postal_code</code> using a 5-digit US zip code.</td>
         </tr>
         <tr>
             <td><code>property_county</code></td>
             <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td>County the property resides in.</td>
         </tr>
         <tr>
             <td><code>property_country</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><code>property_value_usd</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-country">country</a></td>
+            <td>Country the property resides in.</td>
         </tr>
         <tr>
             <td><code>valuation_type</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-choice">choice</a></td>
+            <td>Choices: <code>original_appraisal</code>, <code>current_appraisal</code>, <code>bpo</code>, <code>avm</code>, <code>other</code>.</td>
+        </tr>
+        <tr>
+            <td><code>property_value_usd</code></td>
+            <td><a href="#type-usd">usd</a></td>
+            <td>The valuation given to the property in relation to the <code>valuation_type</code>.</td>
         </tr>
         <tr>
             <td><code>valuation_date</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-date">date</a></td>
+            <td>The date that the valuation related to the <code>valuation_type</code> was assessed.</td>
         </tr>
         <tr>
             <td><code>occupancy_status</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-choice">choice</a></td>
+            <td>Choices: <code>primary_borrower</code>, <code>vacant</code>, <code>unknown</code>,<code>other</code>.</td>
         </tr>
         <tr>
             <td><code>property_type</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-choice">choice</a></td>
+            <td>Choices: <code>single_family</code>, <code>multi_family</code>, <code>pud</code>, <code>mobile_home</code>, <code>condominium</code>, <code>other</code>.</td>
         </tr>
     </tbody>
 </table>
@@ -316,7 +333,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <th>Comments</th>
         </tr>
     </thead>
-    <tbody style="font-size: 14px;">
+    <tbody style="font-size: 14px; vertical-align: top;">
         <tr>
             <td><code>original_balance_usd</code></td>
             <td><a href="#type-string">string</a></td>
@@ -328,7 +345,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td></td>
         </tr>
         <tr>
-            <td><code>intrest_rate_percent</code></td>
+            <td><code>interest_rate_percent</code></td>
             <td><a href="#type-string">string</a></td>
             <td></td>
         </tr>
@@ -363,7 +380,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td></td>
         </tr>
         <tr>
-            <td><code>unpaid_intrest_usd</code></td>
+            <td><code>unpaid_interest_usd</code></td>
             <td><a href="#type-string">string</a></td>
             <td></td>
         </tr>
