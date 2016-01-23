@@ -95,6 +95,9 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
         </tr>
     </thead>
     <tbody style="font-size: 14px; vertical-align: top;">
+        <tr id="type-boolean">
+            <td><code>boolean</code></td>
+            <td>Case-insensitive representation of <strong>Yes</strong> or <strong>No</strong>. A shorter single-letter <strong>Y</strong> or <strong>N</strong> is also acceptable.  Therefore, acceptable values for <strong>yes</strong> include: <code>y</code>, <code>Y</code>, <code>yes</code>, <code>Yes</code> and <code>YES</code>.</td>
         <tr id="type-string">
             <td><code>string</code></td>
             <td>Any value</td>
@@ -118,6 +121,14 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
         <tr id="type-email">
             <td><code>email</code></td>
             <td>Email address</td>
+        </tr>
+        <tr id="type-number">
+            <td><code>number</code></td>
+            <td><a href="http://dictionary.reference.com/browse/whole-number" target="_blank">Whole number</a>. Positive integer or zero. e.g. <code>0</code>, <code>1</code>, <code>2</code>, ...</td>
+        </tr>
+        <tr id="type-percent">
+            <td><code>percent</code></td>
+            <td>A percentage value. Requires <code>%</code> symbol to come immediately after the value - e.g. <code>50%</code>.</td>
         </tr>
         <tr id="type-phone">
             <td><code>phone</code></td>
@@ -336,127 +347,127 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
     <tbody style="font-size: 14px; vertical-align: top;">
         <tr>
             <td><code>original_balance_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>u_p_b_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>interest_rate_percent</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-percent">percent</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>sold_rate_percent</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-percent">percent</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>lien_position</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-number">number</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>escrow_amount_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>loan_charges_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>accrued_late_charges_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>payments_last_12_months</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td></td>
+            <td><a href="#type-number">number</a></td>
+            <td>The amount of payments the borrower has made in the past 12 months.</td>
         </tr>
         <tr>
             <td><code>unpaid_interest_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>past_due_taxes_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>p_and_i_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>foreclosure_started</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-boolean">boolean</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>bankruptcy</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-boolean">boolean</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>grace_days</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-number">number</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>late_charge_percent</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-percent">percent</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>late_charge_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>paid_to_date</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-date">date</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>first_pay_date</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-date">date</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>next_pay_date</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-date">date</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>last_pay_date</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-date">date</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>maturity_date</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-date">date</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>original_loan_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>total_payoff_usd</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
             <td><code>origination_date</code></td>
-            <td><a href="#type-string">string</a></td>
+            <td><a href="#type-date">date</a></td>
             <td></td>
         </tr>
     </tbody>
