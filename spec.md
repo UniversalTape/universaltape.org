@@ -13,14 +13,6 @@ title: Spec
 
 Parsing of the file happens one row at a time, from top to bottom. If a recognized Universal Tape **key** is found within one of the row columns _(usually the first row of the spreadsheet)_, we assume that the row is a **definition row** _(a row of **keys** that define the data in the upcoming rows)_. Once a definition row is found, we begin importing all the valid data within the columns of the **keys** recognized by the Universal Tape format.
 
-<h4 id="required-data">Required Data</h4>
-
-At the very minimum, each row needs to contain valid values for these (3) keys:
-
-* `borrower_name` **or** `borrower_last_name`
-* `property_street_address`
-* `property_postal_code` **or** `property_zip`
-
 #### Parsing FAQ
 
 <dl class="accordion">
