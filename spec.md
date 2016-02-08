@@ -455,12 +455,12 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>total_payoff_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>The total amount due on the loan, including principal and interest, late charges, and loan charges.</td>
         </tr>
         <tr>
             <td><code>origination_date</code></td>
             <td><a href="#type-date">date</a></td>
-            <td></td>
+            <td>The date the loan was originated.</td>
         </tr>
     </tbody>
 </table>
