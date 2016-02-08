@@ -340,7 +340,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>original_balance_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>The original balance of the loan from the origination date.</td>
         </tr>
         <tr>
             <td><code>u_p_b_usd</code></td>
