@@ -440,12 +440,12 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>last_pay_date</code></td>
             <td><a href="#type-date">date</a></td>
-            <td></td>
+            <td>Last date the borrower made a payment.</td>
         </tr>
         <tr>
             <td><code>maturity_date</code></td>
             <td><a href="#type-date">date</a></td>
-            <td></td>
+            <td>Date the loan is set to mature.</td>
         </tr>
         <tr>
             <td><code>original_loan_usd</code></td>
