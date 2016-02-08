@@ -425,17 +425,17 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>paid_to_date</code></td>
             <td><a href="#type-date">date</a></td>
-            <td></td>
+            <td>Last due date that the borrower made a payment for. </td>
         </tr>
         <tr>
             <td><code>first_pay_date</code></td>
             <td><a href="#type-date">date</a></td>
-            <td></td>
+            <td>First date the borrower was required to make a payment after <code>origination_date<code></td>
         </tr>
         <tr>
             <td><code>next_pay_date</code></td>
             <td><a href="#type-date">date</a></td>
-            <td></td>
+            <td>Next date that the borrower is due to make a payment.</td>
         </tr>
         <tr>
             <td><code>last_pay_date</code></td>
