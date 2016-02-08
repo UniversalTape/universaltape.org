@@ -355,7 +355,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>sold_rate_percent</code></td>
             <td><a href="#type-percent">percent</a></td>
-            <td></td>
+            <td>Sold rate of note if different than <code>interest_rate<code></td>
         </tr>
         <tr>
             <td><code>lien_position</code></td>
