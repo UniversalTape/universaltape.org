@@ -400,7 +400,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>foreclosure_started</code></td>
             <td><a href="#type-boolean">boolean</a></td>
-            <td></td>
+            <td>Choices: <code>yes</code>, <code>no</code></td>
         </tr>
         <tr>
             <td><code>bankruptcy</code></td>
