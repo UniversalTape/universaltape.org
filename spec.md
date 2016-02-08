@@ -360,17 +360,17 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>lien_position</code></td>
             <td><a href="#type-number">number</a></td>
-            <td></td>
+            <td>This is the lien position of the subject loan.</td>
         </tr>
         <tr>
             <td><code>escrow_amount_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Amount of monthly payment that is escrowed for taxes and insurance.</td>
         </tr>
         <tr>
             <td><code>loan_charges_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Current charges to the loan.</td>
         </tr>
         <tr>
             <td><code>accrued_late_charges_usd</code></td>
