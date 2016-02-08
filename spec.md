@@ -415,12 +415,12 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>late_charge_percent</code></td>
             <td><a href="#type-percent">percent</a></td>
-            <td></td>
+            <td>Amount of late charge if calculated as a percentage.</td>
         </tr>
         <tr>
             <td><code>late_charge_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Amount of late charge if calculated as a dollar figure.</td>
         </tr>
         <tr>
             <td><code>paid_to_date</code></td>
