@@ -375,7 +375,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>accrued_late_charges_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Total late charges on the loan.</td>
         </tr>
         <tr>
             <td><code>payments_last_12_months</code></td>
@@ -385,17 +385,17 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>unpaid_interest_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Amount of unpaid interest.</td>
         </tr>
         <tr>
             <td><code>past_due_taxes_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Amount of taxes that are past due.</td>
         </tr>
         <tr>
             <td><code>p_and_i_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
-            <td></td>
+            <td>Principal and interest payment amount.</td>
         </tr>
         <tr>
             <td><code>foreclosure_started</code></td>
