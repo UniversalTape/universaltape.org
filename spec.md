@@ -316,7 +316,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         <tr>
             <td><code>occupancy_status</code></td>
             <td><a href="#type-choice">choice</a></td>
-            <td>Choices: <code>primary_borrower</code>, <code>vacant</code>, <code>unknown</code>,<code>other</code>.</td>
+            <td>Choices: <code>occupied</code>, <code>vacant</code>, <code>unknown</code>.</td>
         </tr>
         <tr>
             <td><code>property_type</code></td>
