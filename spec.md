@@ -398,6 +398,11 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>Principal and interest payment amount.</td>
         </tr>
         <tr>
+            <td><code>total_monthly_payment_usd</code></td>
+            <td><a href="#type-usd">usd</a></td>
+            <td>Amount to be paid by borrower each month including principal, interest, taxes and insurance.</td>
+        </tr>
+        <tr>
             <td><code>foreclosure_started</code></td>
             <td><a href="#type-boolean">boolean</a></td>
             <td>Choices: <code>yes</code>, <code>no</code></td>
