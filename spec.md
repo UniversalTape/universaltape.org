@@ -363,6 +363,11 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>This is the lien position of the subject loan.</td>
         </tr>
         <tr>
+            <td><code>loan_status</code></td>
+            <td><a href="#type-choice">choice</a></td>
+            <td>Choices: <code>performing</code>, <code>non_performing</code></td>
+        </tr>
+        <tr>
             <td><code>escrow_amount_usd</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Amount of monthly payment that is escrowed for taxes and insurance.</td>
