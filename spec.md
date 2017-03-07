@@ -20,9 +20,10 @@ Parsing of the file happens one row at a time, from top to bottom. The top row i
 The **key** _(column title)_ is normalized _(converted to a common format)_ before interpretation. This allows **Universal Tape** to be flexible with things like letter casing, etc. The formula for normalizing the key is:
 
 1. **Lowercase** the key
-2. **Replace** _"&" with _"and" (underscore)_
-3. **Replace** _" " (space)_ and _"-" (dash)_ characters with _"\_" (underscore)_
-4. **Remove** all _non-alphanumeric_ characters (except for _underscore_)
+2. **Replace** _"&" with _"and"_
+3. **Replace** _"%" with _"percent"_
+4. **Replace** _" " (space)_ and _"-" (dash)_ characters with _"\_" (underscore)_
+5. **Remove** all _non-alphanumeric_ characters (except for _underscore_)
 
 ---
 
@@ -355,7 +356,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         </tr>
         <tr>
             <td><code>late_charge_percent</code></td>
-            <td><a href="#type-percent">percent</a></td>
+            <td><a href="#type-decimal">decimal</a></td>
             <td>Amount of late charge if calculated as a percentage.</td>
         </tr>
         <tr>
