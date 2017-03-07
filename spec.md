@@ -5,73 +5,24 @@ title: Spec
 
 ## File Format
 
-**Universal Tape** does not enforce a specific file format, but expects the data to be compatible with a spreadsheet-like format. The optimal file format for **Universal Tape** is `.csv`, since it is an open format that is easily parsed by many different programming languages.
+**Universal Tape** is transferred via Comma-separated values (CSV) format.  This is due to tape data traditionally being shared in a spreadsheet-like format, and the fact that CSV's are a common format that can easily be imported/exported.
 
 ---
 
 ## How the file is parsed
 
-Parsing of the file happens one row at a time, from top to bottom. If a recognized Universal Tape **key** is found within one of the row columns _(usually the first row of the spreadsheet)_, we assume that the row is a **definition row** _(a row of **keys** that define the data in the upcoming rows)_. Once a definition row is found, we begin importing all the valid data within the columns of the **keys** recognized by the Universal Tape format.
-
-#### Parsing FAQ
-
-<dl class="accordion">
-    <dt ng-click="parsingFaq = 1" ng-class="{'active': parsingFaq == 1}">What if the file has multiple definition rows?</dt>
-    <dd ng-show="parsingFaq == 1">Each time a row is parsed, it checks if it is a definition row. If so, the keys within it are recognized for all the following row data, until another definition row is detected.</dd>
-    <dt ng-click="parsingFaq = 2" ng-class="{'active': parsingFaq == 2}">What if place my first definition row on the 5th row?</dt>
-    <dd ng-show="parsingFaq == 2">The parser will ignore the first 4 rows, and then set the 5th row as the definition row, and begin importing valid data on the 6th row.</dd>
-    <dt ng-click="parsingFaq = 3" ng-class="{'active': parsingFaq == 3}">What happens to the columns that don't have a Universal Tape key in the definition row?</dt>
-    <dd ng-show="parsingFaq == 3">The data for that column is ignored.</dd>
-    <dt ng-click="parsingFaq = 4" ng-class="{'active': parsingFaq == 4}">What if I have a row of values, and a column that is defined by a Universal Tape key, but the column contains an invalid data type, or is empty?</dt>
-    <dd ng-show="parsingFaq == 4">The column will be ignored, when parsing that row.</dd>
-    <dt ng-click="parsingFaq = 5" ng-class="{'active': parsingFaq == 5}">What happens if required data (like <code>property_street_address</code>) is missing from a row?</dd>
-    <dd ng-show="parsingFaq == 5">The row will be skipped and not parsed.</dd>
-    <dt ng-click="parsingFaq = 6" ng-class="{'active': parsingFaq == 6}">Do I need to include all Universal Tapes keys in my definition row?</dt>
-    <dd ng-show="parsingFaq == 6">No. Only the <a href="#required-data">required data</a> keys are required.
-    <dt ng-click="parsingFaq = 7" ng-class="{'active': parsingFaq == 7}">Can I use my own properietary keys that are not part of the Universal Tape spec?</dt>
-    <dd ng-show="parsingFaq == 7">Yes. Applications that import/parse your tape will simply ignore that column.</dd>
-</dl>
+Parsing of the file happens one row at a time, from top to bottom. The top row is the **definition row** _(the row of **keys** that define the data in the upcoming rows)_. All remaining rows count as one record per row.  So, a Universal Tape CSV file with 10 rows, should contain 9 records (the first row being the definition row, and the following 9 rows being record items).
 
 ---
 
 <h2 id="key-normalization">Key Normalization</h2>
 
-The **key** _(column title)_ is normalized _(convert to a common format)_ before interpretation. This allows the **Universal Tape** to allow flexibility in things like letter casing, etc. The formula for normalizing the key is:
+The **key** _(column title)_ is normalized _(converted to a common format)_ before interpretation. This allows **Universal Tape** to be flexible with things like letter casing, etc. The formula for normalizing the key is:
 
 1. **Lowercase** the key
-2. **Replace** _"%"_ characters with _"percent"_
-3. **Replace** _"#"_ characters with _"number"_
-4. **Replace** _"&"_ characters with _"and"_
-5. **Replace** _"$"_ characters with _"usd"_
-6. **Replace** _"." (dot)_, _" " (space)_ and _"-" (dash)_ characters with _"\_" (underscore)_
-7. **Remove** all _non-alphanumeric_ characters (except for _underscore_)
-
-#### Interactive Example
-
-The table below shows 3 different keys, and their normalized values. You can edit the text inputs to calculate the normalized value for a key.
-
-<table>
-    <thead>
-        <tr>
-            <th>Key</th>
-            <th>Normalized Key</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" style="width: 100%;" ng-model="normalizeDemo1" ng-init="normalizeDemo1 = 'Borrower Name'"></td>
-            <td><code ng-bind="normalizeDemo1 | normalize"></code></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width: 100%;" ng-model="normalizeDemo2" ng-init="normalizeDemo2 = 'U.P.B $'"></td>
-            <td><code ng-bind="normalizeDemo2 | normalize"></code></td>
-        </tr>
-         <tr>
-             <td><input type="text" style="width: 100%;" ng-model="normalizeDemo3" ng-init="normalizeDemo3 = 'u-p-b usd'"></td>
-             <td><code ng-bind="normalizeDemo3 | normalize"></code></td>
-         </tr>
-    </tbody>
-</table>
+2. **Replace** _"&" with _"and" (underscore)_
+3. **Replace** _" " (space)_ and _"-" (dash)_ characters with _"\_" (underscore)_
+4. **Remove** all _non-alphanumeric_ characters (except for _underscore_)
 
 ---
 
@@ -118,9 +69,9 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
             <td><code>number</code></td>
             <td><a href="http://dictionary.reference.com/browse/whole-number" target="_blank">Whole number</a>. Positive integer or zero. e.g. <code>0</code>, <code>1</code>, <code>2</code>, ...</td>
         </tr>
-        <tr id="type-percent">
-            <td><code>percent</code></td>
-            <td>A percentage value. Requires <code>%</code> symbol to come immediately after the value - e.g. <code>50%</code>.</td>
+        <tr id="type-decimal">
+            <td><code>decimal</code></td>
+            <td>A decimal value. This can be a <a href="#type-number">number</a>, decimal or percentage value.  If your value is a percentage, then you must have a `%` symbol. So if your input is `.125` or `12.5%`, they will both equal the same value.</td>
         </tr>
         <tr id="type-phone">
             <td><code>phone</code></td>
@@ -141,7 +92,7 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
 
 <h2 id="keys">Keys</h2>
 
-Below are the **keys** that **Universal Tape** recognizes.  It should be said that a tape will most likely **not** contain all of these keys.  Also, a tape will contain proprietary data that is not part of the **Universal Tape** spec, and will be ignored by any applications parsing the data. If there is a certain key that you would like to see added to the spec, please fill out an [issue](https://github.com/UniversalTape/universaltape.org/issues) on our Github page.
+Below are the **keys** that **Universal Tape** recognizes.  It should be said that a tape will most likely **not** contain all of these keys.  Also, a tape might contain proprietary data that is not part of the **Universal Tape** spec. If there is a certain key that you would like to see added to the spec, please fill out an [issue](https://github.com/UniversalTape/universaltape.org/issues) on our Github page.
 
 #### Borrower Keys
 
@@ -185,24 +136,14 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>City for the borrower's home address.</td>
         </tr>
         <tr>
-            <td><code>borrower_subdivision</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td>The state/province/region for the borrower's home address.</td>
-        </tr>
-        <tr>
             <td><code>borrower_state</code></td>
             <td><a href="#type-state">state</a></td>
-            <td><em>(For US addresses only)</em> A more strict-type version of <code>borrower_subdivision</code> that requires a 2-character state code.</td>
-        </tr>
-        <tr>
-            <td><code>borrower_postal_code</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td>The postal code for the borrower's home address.</td>
+            <td><em>(For US addresses only)</em> 2-character state code for the borrower's home address.</td>
         </tr>
         <tr>
             <td><code>borrower_zip</code></td>
             <td><a href="#type-zip">zip</a></td>
-            <td><em>(For US addresses only)</em>. A more strict-type version of <code>borrower_postal_code</code> using a 5-digit US zip code.</td>
+            <td><em>(For US addresses only)</em>. 5-digit US zip code for the borrower's home address.</td>
         </tr>
         <tr>
             <td><code>borrower_county</code></td>
@@ -269,24 +210,14 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>City the property resides in.</td>
         </tr>
         <tr>
-            <td><code>property_subdivision</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td>The state/province/region for the property resides in.</td>
-        </tr>
-        <tr>
             <td><code>property_state</code></td>
             <td><a href="#type-state">state</a></td>
-            <td><em>(For US addresses only)</em> A more strict-type version of <code>property_subdivision</code> that requires a 2-character state code.</td>
-        </tr>
-        <tr>
-            <td><code>property_postal_code</code></td>
-            <td><a href="#type-string">string</a></td>
-            <td>The postal code for the property.</td>
+            <td><em>(For US addresses only)</em> 2-character state code for the property.</td>
         </tr>
         <tr>
             <td><code>property_zip</code></td>
             <td><a href="#type-zip">zip</a></td>
-            <td><em>(For US addresses only)</em>. A more strict-type version of <code>property_postal_code</code> using a 5-digit US zip code.</td>
+            <td><em>(For US addresses only)</em>. 5-digit US zip code for the property.</td>
         </tr>
         <tr>
             <td><code>property_county</code></td>
@@ -304,7 +235,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>Choices: <code>original_appraisal</code>, <code>current_appraisal</code>, <code>bpo</code>, <code>avm</code>, <code>other</code>.</td>
         </tr>
         <tr>
-            <td><code>property_value_usd</code></td>
+            <td><code>property_value</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>The valuation given to the property in relation to the <code>valuation_type</code>.</td>
         </tr>
@@ -338,23 +269,23 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
     </thead>
     <tbody style="font-size: 14px; vertical-align: top;">
         <tr>
-            <td><code>original_balance_usd</code></td>
+            <td><code>original_balance</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>The original balance of the loan from the origination date.</td>
         </tr>
         <tr>
-            <td><code>u_p_b_usd</code></td>
+            <td><code>upb</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Current unpaid principal balance.</td>
         </tr>
         <tr>
-            <td><code>interest_rate_percent</code></td>
-            <td><a href="#type-percent">percent</a></td>
+            <td><code>interest_rate</code></td>
+            <td><a href="#type-decimal">decimal</a></td>
             <td>Current interest rate of loan.</td>
         </tr>
         <tr>
-            <td><code>sold_rate_percent</code></td>
-            <td><a href="#type-percent">percent</a></td>
+            <td><code>sold_rate</code></td>
+            <td><a href="#type-decimal">decimal</a></td>
             <td>Sold rate of note if different than <code>interest_rate<code></td>
         </tr>
         <tr>
@@ -368,17 +299,17 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>Choices: <code>performing</code>, <code>non_performing</code></td>
         </tr>
         <tr>
-            <td><code>escrow_amount_usd</code></td>
+            <td><code>escrow_amount</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Amount of monthly payment that is escrowed for taxes and insurance.</td>
         </tr>
         <tr>
-            <td><code>loan_charges_usd</code></td>
+            <td><code>loan_charges</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Current charges to the loan.</td>
         </tr>
         <tr>
-            <td><code>accrued_late_charges_usd</code></td>
+            <td><code>accrued_late_charges</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Total late charges on the loan.</td>
         </tr>
@@ -388,22 +319,22 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>The amount of payments the borrower has made in the past 12 months.</td>
         </tr>
         <tr>
-            <td><code>unpaid_interest_usd</code></td>
+            <td><code>unpaid_interest</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Amount of unpaid interest.</td>
         </tr>
         <tr>
-            <td><code>past_due_taxes_usd</code></td>
+            <td><code>past_due_taxes</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Amount of taxes that are past due.</td>
         </tr>
         <tr>
-            <td><code>p_and_i_usd</code></td>
+            <td><code>p_and_i</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Principal and interest payment amount.</td>
         </tr>
         <tr>
-            <td><code>total_monthly_payment_usd</code></td>
+            <td><code>total_monthly_payment</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Amount to be paid by borrower each month including principal, interest, taxes and insurance.</td>
         </tr>
@@ -428,7 +359,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>Amount of late charge if calculated as a percentage.</td>
         </tr>
         <tr>
-            <td><code>late_charge_usd</code></td>
+            <td><code>late_charge</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>Amount of late charge if calculated as a dollar figure.</td>
         </tr>
@@ -458,12 +389,12 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>Date the loan is set to mature.</td>
         </tr>
         <tr>
-            <td><code>original_loan_usd</code></td>
+            <td><code>original_loan</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td></td>
         </tr>
         <tr>
-            <td><code>total_payoff_usd</code></td>
+            <td><code>total_payoff</code></td>
             <td><a href="#type-usd">usd</a></td>
             <td>The total amount due on the loan, including principal and interest, late charges, and loan charges.</td>
         </tr>
