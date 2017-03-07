@@ -70,9 +70,9 @@ Keys expect certain **values types** _(formats)_ for each data cell. Below is a 
             <td><code>number</code></td>
             <td><a href="http://dictionary.reference.com/browse/whole-number" target="_blank">Whole number</a>. Positive integer or zero. e.g. <code>0</code>, <code>1</code>, <code>2</code>, ...</td>
         </tr>
-        <tr id="type-decimal">
-            <td><code>decimal</code></td>
-            <td>A decimal value. This can be a <a href="#type-number">number</a>, decimal or percentage value.  If your value is a percentage, then you must have a `%` symbol. So if your input is `.125` or `12.5%`, they will both equal the same value.</td>
+        <tr id="type-percent">
+            <td><code>percent</code></td>
+            <td>A percentage or decimal value. If your value is a percentage, then you must have a `%` symbol at the end of the value. So if your input is `.125` or `12.5%`, they will both equal the same value.</td>
         </tr>
         <tr id="type-phone">
             <td><code>phone</code></td>
@@ -281,12 +281,12 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         </tr>
         <tr>
             <td><code>interest_rate</code></td>
-            <td><a href="#type-decimal">decimal</a></td>
+            <td><a href="#type-percent">percent</a></td>
             <td>Current interest rate of loan.</td>
         </tr>
         <tr>
             <td><code>sold_rate</code></td>
-            <td><a href="#type-decimal">decimal</a></td>
+            <td><a href="#type-percent">percent</a></td>
             <td>Sold rate of note if different than <code>interest_rate<code></td>
         </tr>
         <tr>
@@ -356,7 +356,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
         </tr>
         <tr>
             <td><code>late_charge_percent</code></td>
-            <td><a href="#type-decimal">decimal</a></td>
+            <td><a href="#type-percent">percent</a></td>
             <td>Amount of late charge if calculated as a percentage.</td>
         </tr>
         <tr>
