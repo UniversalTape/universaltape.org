@@ -355,7 +355,7 @@ Below are the **keys** that **Universal Tape** recognizes.  It should be said th
             <td>Number of days of grace before late charge.</td>
         </tr>
         <tr>
-            <td><code>late_charge_percent</code></td>
+            <td><code>late_charge_rate</code></td>
             <td><a href="#type-percent">percent</a></td>
             <td>Amount of late charge if calculated as a percentage.</td>
         </tr>
